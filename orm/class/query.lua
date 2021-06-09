@@ -128,7 +128,7 @@ function Query(own_table, data)
             insert = insert .. ") \n\t    VALUES (" .. values .. ")"
 
             -- TODO: return valid ID
-            _connect = db:insert(insert)
+            _connect = db:insert(insert, self.own_table)
 
             self._data.id = {new = _connect}
         end,

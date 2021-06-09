@@ -108,9 +108,12 @@ db = {
     end,
 
     -- Return insert query id
-    insert = function (self, query)
+    insert = function (self, query, own_table)
+        self:execute(query)
+        query = string.format("SELECT id FROM `%s` ORDER BY id DESC LIMIT 1", own_table.__tablename__)
         local _cursor = self:execute(query)
-        return 1
+        local row = _cursor:fetch({}, 'a')
+        return row.id
     end,
 
     -- get parced data
